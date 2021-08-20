@@ -17,17 +17,19 @@ public class boardReplyServlet extends HttpServlet{
 		BoardBean rebean=new BoardBean();
 		
 		//답변글에대한 내용을 전달받아 저장(폼으로부터 전달되는 내용 저장)
-		rebean.setName(req.getParameter("name"));
-		rebean.setSubject(req.getParameter("subject"));
-		rebean.setContent(req.getParameter("content"));
-		rebean.setRef(Integer.parseInt(req.getParameter("ref")));
-		rebean.setPos(Integer.parseInt(req.getParameter("pos")));
-		rebean.setDepth(Integer.parseInt(req.getParameter("depth")));
-		rebean.setPass(req.getParameter("pass"));
-		rebean.setIp(req.getParameter("ip"));
+		/*
+		 * rebean.setName(req.getParameter("name"));
+		 * rebean.setSubject(req.getParameter("subject"));
+		 * rebean.setContent(req.getParameter("content"));
+		 * rebean.setRef(Integer.parseInt(req.getParameter("ref")));
+		 * rebean.setPos(Integer.parseInt(req.getParameter("pos")));
+		 * rebean.setDepth(Integer.parseInt(req.getParameter("depth")));
+		 * rebean.setPass(req.getParameter("pass"));
+		 * rebean.setIp(req.getParameter("ip"));
+		 */
 		
 		//답변글의 위치값 증가(이미 등록되어진 답변글의 상대위치(pos)를 1씩 증가)
-		bMgr.replyUpBoard(rebean.getRef(),rebean.getPos());
+		//bMgr.replyUpBoard(rebean.getRef(),rebean.getPos());
 		
 		//답변글을 등록
 		bMgr.replyBoard(rebean);

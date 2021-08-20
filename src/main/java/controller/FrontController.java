@@ -3,30 +3,34 @@ package controller;
 import java.io.IOException;
 import java.util.HashMap;
 
+import controller.Controller;
+import controller.MemberJoinController;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class FrontController extends HttpServlet{
+	String charset = "UTF-8";
+	HashMap<String, Controller> list = null;
 
-	HashMap<String,Controller>list = null;	//Key : URL value :컨트롤러객체
-	
 	@Override
-	public void init() throws ServletException {
+	public void init(ServletConfig sc) throws ServletException 	 
+	{
+		charset = sc.getInitParameter("charset");
+		//URL 기능객체 추가
 		list = new HashMap();
-		list.put("/lms/View/MemberJoin.do",new MemberInsertController());	
+		list.put("/KimChangDong/View/MemberJoin.do",new MemberJoinController());
 	}
+
 	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String URL = request.getRequestURI();	//action 경로 받아옴
-		System.out.println("URL : " + URL);
-		Controller controller = list.get(URL);	//Map에서 해당 action 경로에 대한 기능객체를 가져옴
-		controller.execute(request, response);	//해당기능객체를 실행
+		request.setCharacterEncoding(charset);
+		// 사용자 요청별로 기능객체를 반환
+		// 해당 기능 실행 
+		String URL=request.getRequestURI();
+		Controller controll=list.get(URL);
+		controll.execute(request, response);
 	}
-
-
-
 }

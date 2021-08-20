@@ -1,11 +1,17 @@
 package Ch20;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.net.URLEncoder;
 import java.sql.*;
 import java.util.ArrayList;
 
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import jakarta.servlet.jsp.JspWriter;
+import jakarta.servlet.jsp.PageContext;
 
 public class BoardMgr {
 	DBConnectionMgr pool=null;
@@ -27,7 +33,7 @@ public class BoardMgr {
 			conn=pool.getConnection();
 			if(keyWord.equals("null")||keyWord.equals("")) {
 				//전체 게시물 개수를 select
-				pstmt=conn.prepareStatement("select count(*) from tblboard");
+				pstmt=conn.prepareStatement("select count(*) from boardtbl");
 			}else {
 				//전달받은 검색 정보를 만족하는 게시물개수를 select
 				pstmt=conn.prepareStatement("select count(*) from tblboard where "+keyField+" like ?");
@@ -57,15 +63,15 @@ public class BoardMgr {
 		try {
 			conn=pool.getConnection();
 			if(keyWord.equals("null")||keyWord.equals("")) {
-				sql="select * from tblboard order by ref desc,pos limit ?,?";	//답글고려X-reply 페이지 구성시 수정
+				sql="select * from boardtbl order by num limit ?,?";	//답글고려X-reply 페이지 구성시 수정
 				pstmt=conn.prepareStatement(sql);
 				pstmt.setInt(1, start);
 				pstmt.setInt(2, end);
 			}
 			else {
 				//키워드 고려 검색
-				sql="select * from tbloard where "+keyField +" like ? ";
-				sql+= "order by ref desc,pos desc limit ?,?";
+				sql="select * from boardtbl where "+keyField +" like ? ";
+				sql+= "order by num desc limit ?,?";
 				pstmt=conn.prepareStatement(sql);
 				pstmt.setString(1,"%"+keyWord+"%");
 				pstmt.setInt(2, start);
@@ -75,13 +81,10 @@ public class BoardMgr {
 			while(rs.next()) {
 				BoardBean bean=new BoardBean();
 				bean.setNum(rs.getInt("num"));
-				bean.setName(rs.getString("name"));
+				bean.setTheatername(rs.getString("theatername"));
+				bean.setDivi(rs.getString("divi"));
 				bean.setSubject(rs.getString("subject"));
-				bean.setPos(rs.getInt("pos"));
-				bean.setRef(rs.getInt("ref"));
-				bean.setDepth(rs.getInt("depth"));
 				bean.setRegdate(rs.getString("regdate"));
-				bean.setCount(rs.getInt("count"));
 				blist.add(bean);
 			}
 		}catch(Exception e) {
@@ -190,18 +193,10 @@ public class BoardMgr {
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				bean.setNum(rs.getInt("num"));
-				bean.setName(rs.getString("name"));
+				bean.setTheatername(rs.getString("theatername"));
+				bean.setDivi(rs.getString("divi"));
 				bean.setSubject(rs.getString("subject"));
-				bean.setContent(rs.getString("content"));
-				bean.setPos(rs.getInt("pos"));
-				bean.setRef(rs.getInt("ref"));
-				bean.setDepth(rs.getInt("depth"));
 				bean.setRegdate(rs.getString("regdate"));
-				bean.setPass(rs.getString("pass"));
-				bean.setCount(rs.getInt("count"));
-				bean.setFilename(rs.getString("filename"));
-				bean.setFilesize(rs.getInt("filesize"));
-				bean.setIp(rs.getString("ip"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -219,10 +214,12 @@ public class BoardMgr {
 			conn=pool.getConnection();
 			sql="update tblBoard set name=?,subject=?,content=? where num=?";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, bean.getName());
-			pstmt.setString(2, bean.getSubject());
-			pstmt.setString(3, bean.getContent());
-			pstmt.setInt(4, bean.getNum());
+			/*
+			 * bean.setNum(rs.getInt("num"));
+			 * bean.setTheatername(rs.getString("theatername"));
+			 * bean.setDivi(rs.getString("divi")); bean.setSubject(rs.getString("subject"));
+			 * bean.setRegdate(rs.getString("regdate"));
+			 */
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -262,14 +259,13 @@ public class BoardMgr {
 			sql="insert into tblboard(name,content,subject,ref,pos,depth,regdate,pass,count,ip)";
 			sql+=" values(?,?,?,?,?,?,now(),?,0,?)";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, rebean.getName());
-			pstmt.setString(2, rebean.getContent());
-			pstmt.setString(3, rebean.getSubject());
-			pstmt.setInt(4, rebean.getRef());
-			pstmt.setInt(5, rebean.getPos()+1);		//pos 값 1증가
-			pstmt.setInt(6, rebean.getDepth()+1);	//depth 값 1증가		
-			pstmt.setString(7, rebean.getPass());
-			pstmt.setString(8, rebean.getIp());
+			/*
+			 * pstmt.setString(1, rebean.getName()); pstmt.setString(2,
+			 * rebean.getContent()); pstmt.setString(3, rebean.getSubject());
+			 * pstmt.setInt(4, rebean.getRef()); pstmt.setInt(5, rebean.getPos()+1); //pos 값
+			 * 1증가 pstmt.setInt(6, rebean.getDepth()+1); //depth 값 1증가 pstmt.setString(7,
+			 * rebean.getPass()); pstmt.setString(8, rebean.getIp());
+			 */
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -314,6 +310,49 @@ public class BoardMgr {
 			e.printStackTrace();
 		}finally {
 			pool.freeConnection(conn, pstmt,rs);
+		}
+	}
+	
+	public void downLoad(HttpServletRequest req, HttpServletResponse resp,JspWriter out, PageContext pageContext ) 
+	{
+		try {
+			//1. 파일 이름받아오기
+			String filename=req.getParameter("filename");
+			File file=new File("c:\\UPLOAD"+File.separator+filename);
+			
+			//2. 파일헤더 설정
+			String mimeType=req.getServletContext().getMimeType(filename);
+			if(mimeType == null) {
+				mimeType="application/octet-stream";
+			}
+			resp.setContentType(mimeType);
+			
+			//3. 한글문자깨짐방지 인코딩
+			//String Encoding = new String(filename.getBytes("UTF-8"));
+			filename=URLEncoder.encode(filename,"utf-8").replace("\\+","%20");
+			resp.setHeader("Content-Disposition", "attachment; fileName= "+filename);
+			
+			//4. 버퍼공간+스트림생성
+			byte[] buff=new byte[4096];
+			FileInputStream instream=new FileInputStream("c:\\UPLOAD"+File.separator+filename);
+			ServletOutputStream outstream=resp.getOutputStream();
+			
+			out.clear();		//클라이언트 웹브라우저 버퍼공간 초기화
+			out=pageContext.pushBody();	//JSP페이지에 대한 정보 저장
+			
+			int read=0;
+			while(read!=-1) {
+				read=instream.read(buff,0,buff.length);		//UPLOAD폴더의 파일을 서버로 읽어옴 buff 저장
+				if(read==-1)
+					break;
+				outstream.write(buff, 0, read); 	//클라이언트로 읽어들인 Buff안의 데이터를 전달
+				
+			}
+			outstream.flush();
+			outstream.close();
+			instream.close();
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+aside ul { 
+	list-style:none; width:150px; text-align:center;
+}
+
+aside li { 
+border:1px solid black; height:30px; line-height:30px;margin:1px;
+position:relative;top:50px;left:-18px;
+	
+}
+aside  a { text-decoration:none; color:black;}
+aside.c1 {
+background:lightgray; position:relative; top:1px;left:-42px;
+}
+	
+aside.c2 {
+background:lightgray; position:relative; top:34px;left:-42px;
+}

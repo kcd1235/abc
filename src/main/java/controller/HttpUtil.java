@@ -9,16 +9,13 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class HttpUtil {
 
-	public static void forward(HttpServletRequest req , HttpServletResponse resp , String URL)
+	public static void forward(HttpServletRequest request, HttpServletResponse response , String URL) throws  ServletException
 	{
-		RequestDispatcher disp = req.getRequestDispatcher(URL);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(URL);
 		try {
-			disp.forward(req, resp);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		dispatcher.forward(request, response);
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 }

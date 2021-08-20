@@ -1,0 +1,87 @@
+@charset "UTF-8";
+@media(max-width:1500px) {
+	#divi>ul>li
+	{
+	    list-style: none;
+	    display: inline-block;
+	    margin:80px  auto;
+	    border: 1px solid lightgrey;
+	    width:190px; height: 30px;
+	    line-height: 30px;
+	    text-align: center;
+	    float: left;
+	}
+	#divi>ul>#l1
+	{
+	    margin-left: 40px;
+	}
+	#divi>ul>#l2
+	{
+	    border:0px;
+	    width:30px;
+	    border-bottom: 1px solid lightgray;
+	}
+	#noticeboard>#top
+	{
+	    width: 100px;
+	    height: 30px;
+	    line-height: 30px;
+	    position: absolute;
+	    top:260px; left:300px;
+	    font-size: 14px;
+	    background-color: lightskyblue;
+	}
+	#noticeboard>#divi
+	{
+	    width: 400px;
+	    height: 500px;
+	    position: absolute;
+	    top:255px;left: 780px;
+	    float: left;
+	}
+	#noticeboard>#divi>#s1
+	{
+	    width:80px;
+	    height:37px;
+	    size:20;
+	}
+	#noticeboard>#divi>#s2
+	{
+	    width:80px;
+	    height:37px;
+	}
+	#noticeboard>#divi>input[type="text"]
+	{
+	    height: 32px;
+	    width:180px;
+	}
+	#notice
+	{
+	    width:830px;
+	    height: 600px;
+	    background-color: indigo;
+	    position: absolute;
+	    top:295px; left:310px;
+	}
+	#notice>table
+	{
+	    width:800px;
+	}
+	#aside>ul>li>ul>li
+	{
+	    height: 20px; width:200px;
+	}
+	#footer
+	{
+	    position:absolute; 
+	    top:948px; left:0px;
+	    font-size:13px;
+	}
+	#footer>table
+	{
+	    width:1100px;
+	}
+	#aside{
+	    height:1150px;
+	}
+}

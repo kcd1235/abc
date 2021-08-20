@@ -1,0 +1,29 @@
+@charset "UTF-8";
+@media only screen and (max-device-width:1300px) {
+	#header>#header_top
+	{
+	    width:1150px;
+	    height: 20px;
+	    margin: 0px 20px;
+	}
+	#header>#header_top>#ci
+	{
+	    position:relative;
+	    left:500px;
+	}
+	#header>#left_link>ul>li {display:inline-block;
+	    font-size: 13px; margin:0px 7px;}
+	#header>#left_link>ul{
+	    
+	    position:absolute; top:0px; left:46px; font-size:15px
+	}
+	#header>#right_link>ul
+	{
+	    position:absolute; top:0px; left:1000px; font-size:15px;
+	}
+	#header>#right_link>ul>li 
+	{
+	    display:inline-block;
+	    font-size: 13px; margin:0px 7px;
+	}
+}

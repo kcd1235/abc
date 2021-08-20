@@ -13,8 +13,8 @@ public class tempPost {
 			conn=pool.getConnection();
 			for(int i=1;i<=1000;i++)
 			{
-			sql="insert into tblBoard(name,subject,content,ref,pos,depth,regdate,pass,count,ip,filename,filesize)";
-			sql+=" values('aaa"+i+"','bbb"+i+"','ccc"+i+"',"+i+",0,0,now(),'1111',0,'127.0.0.1','파일없음',0);";
+			sql="insert into boardtbl(theatername,divi,subject,content,regdate,ip)";
+			sql+=" values('aaa"+i+"','bbb"+i+"','ccc"+i+"',"+i+",0,now(),'127.0.0.1');";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.executeUpdate();
 			}
