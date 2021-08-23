@@ -53,7 +53,7 @@ public class BoardMgr {
 		
 	}
 	
-	public ArrayList<BoardBean> getBoardList(String keyField,String keyWord,int start, int end){
+	public ArrayList<BoardBean> getBoardList(String keyField2,String keyWord,int start, int end){
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -70,7 +70,7 @@ public class BoardMgr {
 			}
 			else {
 				//키워드 고려 검색
-				sql="select * from boardtbl where "+keyField +" like ? ";
+				sql="select * from boardtbl where "+keyField2 +" like ? ";
 				sql+= "order by num desc limit ?,?";
 				pstmt=conn.prepareStatement(sql);
 				pstmt.setString(1,"%"+keyWord+"%");
@@ -93,7 +93,64 @@ public class BoardMgr {
 			pool.freeConnection(conn, pstmt, rs);
 		}
 		return blist;
-		
+	}
+	
+	public ArrayList<BoardBean> selectMegabox() {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=null;
+		ArrayList<BoardBean> alist=new ArrayList();
+		try {
+			conn=pool.getConnection();
+			sql="select * from boardtbl where theatername='메가박스'";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.executeQuery();
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				BoardBean bean=new BoardBean();
+				bean.setNum(rs.getInt("num"));
+				bean.setTheatername(rs.getString("theatername"));
+				bean.setDivi(rs.getString("divi"));
+				bean.setSubject(rs.getString("subject"));
+				bean.setRegdate(rs.getString("regdate"));
+				alist.add(bean);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+		}
+		return alist;
+	}
+	
+	public ArrayList<BoardBean> selectRegion() {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=null;
+		ArrayList<BoardBean> clist=new ArrayList();
+		try {
+			conn=pool.getConnection();
+			sql="select * from boardtbl where theatername not in('메가박스')";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.executeQuery();
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				BoardBean bean=new BoardBean();
+				bean.setNum(rs.getInt("num"));
+				bean.setTheatername(rs.getString("theatername"));
+				bean.setDivi(rs.getString("divi"));
+				bean.setSubject(rs.getString("subject"));
+				bean.setRegdate(rs.getString("regdate"));
+				clist.add(bean);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+		}
+		return clist;
 	}
 
 	public void insertBoard(HttpServletRequest req, Part part) {
@@ -151,9 +208,6 @@ public class BoardMgr {
 		}finally {
 			pool.freeConnection(conn, pstmt, rs);
 		}
-		//업로드
-		//DB저장
-		
 	}
 	
 	private String getFileName(Part part) {
@@ -187,7 +241,7 @@ public class BoardMgr {
 		BoardBean bean=new BoardBean();
 		try {
 			conn=pool.getConnection();
-			sql="select * from tblBoard where num=?";
+			sql="select * from boardtbl where num=?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs=pstmt.executeQuery();
@@ -195,6 +249,7 @@ public class BoardMgr {
 				bean.setNum(rs.getInt("num"));
 				bean.setTheatername(rs.getString("theatername"));
 				bean.setDivi(rs.getString("divi"));
+				bean.setContent(rs.getString("content"));
 				bean.setSubject(rs.getString("subject"));
 				bean.setRegdate(rs.getString("regdate"));
 			}

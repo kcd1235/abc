@@ -1,0 +1,81 @@
+@charset "UTF-8";
+@media only screen and (max-device-width:1300px) {
+	#footer .footertop
+	{
+        width:1100px;
+        margin:0px auto;
+		padding:30px 0;
+	}
+    #footer .footertop .wrap 
+    {
+        width:1100px;
+        height: 30px;
+       margin-left: -45px;
+    }
+    #footer .footertop .fnb li:first-child
+    {
+        margin-left: 0px;
+    }
+	#footer .footertop .fnb 
+    {
+        float:left;
+        display:inline-block;
+    }
+	#footer .footertop .fnb li 
+    {
+         float:left;
+         margin-left: 14px;
+         float: left;
+        
+    }
+    #footer .footerbottom
+    {width:1100px; height: 66px;
+    margin:0px 0px 0px 53px; padding:0;}
+    #footer .footerbottom .wrap
+    {width:1100px; margin:0px auto;}
+	#footer .footerbottom .logo
+	{
+	overflow: hidden;
+    display: block;
+    float: left;
+    width: 150px;
+    height: 50px;
+    margin: 0 20px 0 0px;
+    padding: 0;
+    text-indent: -9999px;
+    background: url(../img/메가박스로고2.JPG) 
+    no-repeat center;
+	}
+	#footer .footerbottom .footerinfo
+	{
+		float:left;
+		font-size:.8667em;
+        letter-spacing: 0;
+        width:592.21px;
+        height:60px;
+	}
+	#footer .footerbottom .footerinfo address
+	{
+		display:inline-block;
+		vertical-align:top;
+	}
+	#footer .footerbottom .footerinfo p
+	{
+		display:inline-block;
+		vertical-align:top;
+	}
+	
+	#footer .footerbottom .sns
+    {float:right;}
+
+    .fa-twitter-square
+    {width: 31px; height: 30px;}
+    .fa-facebook-square
+    {width: 31px; height: 30px;}
+    .fa-instagram-square
+    {width: 31px; height: 30px;}
+    .fa-google-play
+    {width: 31px; height: 30px;}
+    .fa-apple
+    {width: 31px; height: 30px;}
+}

@@ -4,6 +4,12 @@
     margin:0;
     padding: 0;
 }
+body,html
+{
+	width:100%;
+	min-height:100%;
+	overflow-x:hidden;
+}
 ul{
     list-style: none;
 }
@@ -24,7 +30,7 @@ a
 	#header
 	{
 	    width:1200px;
-	    height: 100px;
+	    height: 50px;
 	}
 	
 	#nav
@@ -45,13 +51,14 @@ a
 	    background-color:brown;
 	    float:left;
 	    margin-left: 20px;
+	    margin-top:30px;
 	}
 	
 	#footer
 	{
 	    width:1300px;
-	    height: 180px;
-	    background-color:cyan;
+	    height: 205px;
+	    background-color:lightgray;
 	    position:absolute; 
 	    top:1328px; left:0px;
 	    text-align:justify;

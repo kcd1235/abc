@@ -4,29 +4,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title></title>
 </head>
-<style>
-</style>
+
 <body>
-	<div id="header_top">
-		<h1 id="ci"><a href="#">메인페이지로</a></h1>
+	<div class="header_top">
+		<a href="#"><img alt="" src="img/메가박스로고.JPG" class="ci"></a>
 	</div>
-			
 	<div id="left_link">
 		<ul>
 			<li><a href="#">VIP LOUNGE</a></li>
 			<li><a href="#">멤버십</a></li>
-			<li><a href="#">고객센터</a></li>
+			<li><a href="customerservice.jsp">고객센터</a></li>
 		</ul>
 	</div>
 	<div id="right_link">
 		<ul>
-			<li><a href="#">로그인</a></li>
+			<li><a href="C04Popup.jsp">로그인</a></li>
 			<li><a href="#">회원가입</a></li>
 			<li><a href="#">빠른예매</a></li>
 		</ul>
 	</div>
+	<div class="link_area">
+				<a href="#" class="sitemap"></a>
+				<a href="#" class="search"></a>
+				<a href="#"	class="timetable"></a>
+				<a href="#"	class="mypage"></i></a>
+			</div>
 	<nav id="nav">
 		<ul id="mainmenu">
 			<li id="menu"><a href="#">영화</a>

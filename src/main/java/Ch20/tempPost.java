@@ -14,7 +14,7 @@ public class tempPost {
 			for(int i=1;i<=1000;i++)
 			{
 			sql="insert into boardtbl(theatername,divi,subject,content,regdate,ip)";
-			sql+=" values('aaa"+i+"','bbb"+i+"','ccc"+i+"',"+i+",0,now(),'127.0.0.1');";
+			sql+=" values('서울상암','공지','알림','안녕하세요',now(),'127.0.0.1');";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.executeUpdate();
 			}

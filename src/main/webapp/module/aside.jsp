@@ -12,14 +12,14 @@
 	<ul>
 		<li id="cs1"><a href="customerservice.jsp">고객센터</a></li>
 		<li><a href="customerservice.jsp">고객센터 홈</a></li>
-		<li><a href="#">자주묻는질문</a></li>
+		<li><a href="FAQ.jsp">자주묻는질문</a></li>
 		<li><a href="notice.jsp">공지사항</a></li>
-		<li><a href="#">1:1문의</a></li>
-		<li><a href="#">단체관람 및 대관문의</a></li>
-		<li><a href="#">분실물 문의</a></li>
-		<li><a href="#">이용약관</a></li>
-		<li><a href="#">개인정보처리방침</a></li>
-		<li><a href="#">스크린배정수에관한기준</a></li>
+		<li><a href="inquiry.jsp">1:1문의</a></li>
+		<li><a href="Rent.jsp">단체관람 및 대관문의</a></li>
+		<li><a href="Lost.jsp">분실물 문의</a></li>
+		<li><a href="Terms.jsp">이용약관</a></li>
+		<li><a href="Privacy.jsp">개인정보처리방침</a></li>
+		<li><a href="Screenrule.jsp">스크린배정수에관한기준</a></li>
 		<li id="cs2">
 			<ul>
 				<li>메가박스 고객센터</li>

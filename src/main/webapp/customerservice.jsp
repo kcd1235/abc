@@ -4,12 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>고객센터 | 라이브씨어터,메가박스</title>
 <%@ include file="jsp/link.jsp" %>
-<link rel="stylesheet" href="css/customerservice_content.css">
+<link rel="stylesheet" href="css/customerservice_content.css?123456131111111">
 <script src="js/board.js"></script>
 </head>
-
+<style>
+	#wrap{background:white;}
+	#nav {background-color:white;}
+	#aside{background-color:white;}
+</style>
 <body>
 <jsp:useBean id="bMgr" class="Ch20.BoardMgr" scope="page" />
 <%@page import="java.util.*,Ch20.BoardBean" %>	<!-- ArrayList 사용위한 클래스 경로 설정-->
@@ -85,7 +89,7 @@ function block(value){
 			 </div></a>
 			 <a href="#">
 			 <div id="cont2">
-				<img src="./img/FAQ.png">
+				<img src="./img/분실물.JPG">
 				<h2>분실물문의</h2><br>
 				잃어버린 물건을 접수해주시면<br>
 				신속히 찾아드리겠습니다
@@ -93,50 +97,49 @@ function block(value){
 			 </div ></a>
 			 <a href="#">
 			 <div id="cont3">
-				<img src="./img/FAQ.png">
+				<img src="./img/문의.JPG">
 				<h2>1:1 문의</h2><br>
 				해결되지않은 문제가 있나요?<br>
 				1:1문의로 문의주세요
 			 </div></a>
 			 <a href="#">
 			 <div id="cont4">
-				<img src="./img/FAQ.png">
+				<img src="./img/customer.png">
 				<h2>단체관람 및 대관문의</h2><br>
 				단체관람 또는 대관을 원하시면<br>
 				문의 해주세요
 			</div></a>
 			<a href="#">
 			<div id="cont5">
-				<img src="./img/FAQ.png">
+				<img src="./img/butique.JPG">
 				<h2>할인카드 안내</h2><br>
 				멤버십 제휴카드 및 다양한 할인카드를<br>
 				통해 알뜰하게 영화 감상하세요
 			</div></a>
 		 </div>
-		 <div id="content2">
+		
+		 <div id="content2"> 
+		 <hr>
 			<div id="cont1">
 				<div id="cont1_top">
-					<h3>자주묻는질문BEST5
-						<div id="more">더보기 ></div>
-					</h3>	
+					<h4>자주묻는질문BEST5
+						<div id="more"><a href="FAQ.jsp">더보기 ></a></div>
+					</h4>	
 				</div>
 				
 			</div>
 			<div id="cont2">
 				<div id="cont1_top">
-					<h3>공지사항
-						<div id="more">더보기 ></div>
-					</h3>
+					<h4>공지사항
+						<div id="more"><a href="notice.jsp">더보기 ></a></div>
+					</h4>
 				</div>
 					<table align=center width="1000">
 						<tr>
 						<!-- 게시물 내용 출력  -->
 							<td colspan=2>
-								<table width=395px; border=1>
-										<tr align=center bgcolor=lightgray>
-											<td>번호</td>
-											<td>등록일</td>
-										</tr>
+								<table width=395px>
+	
 			
 					<%
 						listSize=blist.size();	//가져온 게시물의 개수를 listSize에 저장
@@ -154,11 +157,11 @@ function block(value){
 								BoardBean bean = blist.get(i);				
 					%>
 										<tr>
-											<td>
+											<td width="800">
 											<a href="javascript:read('<%=bean.getNum()%>')"><%=bean.getNum() %>
 											[<%=bean.getDivi() %>]&nbsp;<%=bean.getSubject() %></a>
 											</td>
-											<td align=center><%=bean.getRegdate() %></td>
+											<td align=center width="300"><%=bean.getRegdate() %></td>
 										</tr>
 		
 					<%
@@ -169,6 +172,7 @@ function block(value){
 							</td>
 						</tr>
 				</table>
+				
 			</div>
 		</div>
 		<div id="event">
@@ -176,10 +180,10 @@ function block(value){
 				<h2>이벤트</h2>
 			</div>
 			<div id="event1">
-				이벤트1
+				<a href="#"><img src="img/이벤트1.jpg"></a>
 			</div>
 			<div id="event2">
-				이벤트2
+				<a href="#"><img src="img/이벤트2.png"></a>
 			</div >
 		</div>
 		 <footer id="footer">

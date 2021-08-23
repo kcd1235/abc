@@ -7,15 +7,14 @@ function paging(page){
 }
 
 function list(){
-	document.listFrm.action="List.jsp";
+	document.listFrm.action="notice.jsp";
 	document.listFrm.submit();
 }
 
 function check(){
-	if(document.searchFrm.keyWord.value==""){
-		alert("검색어를 입력하세요");
-		document.searchFrm.keyWord.focus();
-		
+	if(document.searchFrm.keyField2.value=="극장선택"){
+		alert("극장을 선택해주세요");
+		document.searchFrm.keyField2.focus();
 	}
 	else{
 		document.searchFrm.submit();
