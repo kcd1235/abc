@@ -1,4 +1,4 @@
-package Ch20;
+package Board;
 
 import java.io.IOException;
 

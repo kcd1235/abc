@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>고객센터 | 라이브씨어터,메가박스</title>
 <%@ include file="jsp/link.jsp" %>
-<link rel="stylesheet" href="css/customerservice_content.css?123456131111111">
+<link rel="stylesheet" href="css/customerservice_content.css">
 <script src="js/board.js"></script>
 </head>
 <style>
@@ -15,8 +15,8 @@
 	#aside{background-color:white;}
 </style>
 <body>
-<jsp:useBean id="bMgr" class="Ch20.BoardMgr" scope="page" />
-<%@page import="java.util.*,Ch20.BoardBean" %>	<!-- ArrayList 사용위한 클래스 경로 설정-->
+<jsp:useBean id="bMgr" class="Board.BoardMgr" scope="page" />
+<%@page import="java.util.*,Board.BoardBean" %>	<!-- ArrayList 사용위한 클래스 경로 설정-->
 <%
 	int totalRecord=0;
 	int numPerPage=5;
@@ -30,19 +30,7 @@
 	int end=5;
 	String keyWord="";// 검색할 문자열
 	String keyField="";//이름 제목 내용
-	
-	//키워드 검색 시작
-	if(request.getParameter("keyWord")!=null){
-		keyWord=request.getParameter("keyWord");
-		keyField=request.getParameter("keyField");
-	}
-	//키워드 검색 끝
-	
-	if(request.getParameter("reload")!=null){
-		if(request.getParameter("reload").equals("true")){
-			keyWord=""; keyField="";
-		}
-	}
+
 	int listSize=0;
 	if(request.getParameter("nowPage")!=null){
 		nowPage=Integer.parseInt(request.getParameter("nowPage"));
@@ -58,12 +46,7 @@
 	ArrayList<BoardBean> blist = bMgr.getBoardList(keyField, keyWord, start, end);
 	
 %>
-<script>
-function block(value){
-	<%-- document.readFrm.nowPage.value=<%=pagePerBlock%>*(value-1)+1; --%>	//이동하는 블럭의 시작페이지 계산-> 15*(value-1)+1
-	document.readFrm.submit();
-}
-</script>
+
 	<div id="wrap">
 		<header id="header">
 			<jsp:include page="module/header.jsp" />
@@ -79,6 +62,7 @@ function block(value){
 			 &nbsp;&nbsp;&nbsp;
 			 빠른검색
 			 <input type="text" placeholder="검색어를 입력해주세요">
+			 <a href="#"><span style="color:gray"><i class="fas fa-search"></i></span></a>
 		 </div>
 		 <div id="content1">
 			 <a href="#">
@@ -186,6 +170,10 @@ function block(value){
 				<a href="#"><img src="img/이벤트2.png"></a>
 			</div >
 		</div>
+		<form name=readFrm method=get>
+			<input type="hidden" name="num">
+			<input type="hidden" name="nowPage" value=<%=nowPage%>>
+		</form>
 		 <footer id="footer">
 			<jsp:include page="jsp/footerContents.jsp" />
 		 </footer>

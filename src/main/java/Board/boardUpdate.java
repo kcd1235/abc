@@ -1,4 +1,4 @@
-package Ch20;
+package Board;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,7 +27,6 @@ public class boardUpdate extends HttpServlet{
 		//upbean.setSubject(req.getParameter("subject"));
 		upbean.setContent(req.getParameter("content"));
 		//upbean.setPass(req.getParameter("pass"));
-		upbean.setIp(req.getParameter("ip"));
 		
 		//String uppwd=upbean.getPass();	//업데이트 예정인 게시물의 패스워드
 		//String inpwd=bean.getPass();	//기존에 저장된 패스워드

@@ -9,7 +9,7 @@
 
 <body>
 	<div class="header_top">
-		<a href="#"><img alt="" src="img/메가박스로고.JPG" class="ci"></a>
+		<a href="Main.jsp"><img alt="" src="img/메가박스로고.JPG" class="ci"></a>
 	</div>
 	<div id="left_link">
 		<ul>
@@ -48,9 +48,9 @@
 					<span id="s2"><li width=200><a href="#">더 부티크 프라이빗 예매</a></li></span>
 				</ul>
 			</li>
-			<li id="menu3"><a href="#">극장</a>
+			<li id="menu3"><a href="theater.jsp">극장</a>
 				<ul id="submenu">
-					<li><a href="#">전체극장</a></li>
+					<li><a href="theater.jsp">전체극장</a></li>
 					<li><a href="#">특별관</a></li>
 				</ul>
 			</li>

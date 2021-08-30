@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/*메뉴  */
 #menu>#submenu{display:none;}
 #menu2>#submenu{display:none; }
 #menu3>#submenu{display: none;}
@@ -21,7 +22,6 @@
     position:relative; 
     left: -60px;
     margin-left: -100px;
-    color:white;
 }
 #nav>#mainmenu>li>ul>li 
 {
@@ -30,6 +30,7 @@
    text-align: left;
    left:0px;float: left;
    font-size: 14px;
+   color:white;
 }
 #nav>#mainmenu>#menu>#submenu
 {
@@ -133,7 +134,7 @@
 	z-index:3;
     line-height: 40px;
 }
-#menu:hover #nav
+#menu:hover #nav>#d1
 {
     background-color: green;
 }
@@ -151,5 +152,6 @@
     height:30px;
     background-color: grey;
     margin-top: 50px;
+
 }
 }

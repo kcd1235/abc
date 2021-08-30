@@ -11,10 +11,17 @@
 </head>
 
 <body>
-
-<footer>
-<%@ include file="jsp/footerContents.jsp" %>
-</footer>
-
+	<div id="wrap">
+		<header id="header">
+			<%@ include file="module/header.jsp" %>
+		</header>
+		<aside id="aside">
+			<%@include file="module/aside.jsp" %>
+		</aside>
+		
+		<footer id="footer">
+			<%@ include file="jsp/footerContents.jsp" %>
+		</footer>
+	</div>
 </body>
 </html>

@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/*게시물읽기  */
 @media only screen and (max-device-width:1300px){
 	.board-wrap{
 	    width:880px;

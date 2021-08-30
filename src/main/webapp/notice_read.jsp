@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="css/notice.css?1111a11s1ad21112">
 <link rel="stylesheet" href="css/read.css?133daassad12">
 <script src="js/board.js"></script>
-<jsp:useBean id="bMgr" class="Ch20.BoardMgr" scope="page"/>
-<%@page import="Ch20.BoardBean" %>
+<jsp:useBean id="bMgr" class="Board.BoardMgr" scope="page"/>
+<%@page import="Board.BoardBean" %>
 	<%
 		int num=Integer.parseInt(request.getParameter("num"));	//게시물번호
 		String nowPage=request.getParameter("nowPage");			//List.jsp에서 읽던 페이지 번호

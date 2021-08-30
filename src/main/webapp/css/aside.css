@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/* aside 고객센터부분에서쓰임 */
 @media only screen and (max-device-width:1300px) {
 	#aside>ul
 	{
@@ -31,5 +32,9 @@
 	    height:100px;
 	    background-color: white;
 	    padding-top: 10px;
+	}
+	#aside>ul>li>ul>li
+	{
+	    height: 20px; width:200px;
 	}
 }

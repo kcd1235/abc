@@ -1,0 +1,181 @@
+@charset "UTF-8";
+@media only screen and (max-device-width:1300px) {
+	.slide
+	{
+    	width:1200px;
+    	height: 326px;
+    	background-color: darkblue;
+    	margin-top:50px;
+    	margin-bottom:40px;
+    }
+	
+	.theater
+	{
+    	width:1150px;
+    	height:340px;
+    	margin: 0px 20px;
+    	position: relative;
+	}
+	.theater .title {padding:0 0 26px 0;}
+	.theater_box
+	{
+    	border-radius: 10px;
+    	border:1px solid black;
+    	height: 292px;
+	}
+	.theater_list ul
+	{
+	    position: absolute;
+	    left: 0;
+	    top: 108px;
+	    height:190px;
+	    width: 100%;
+	    min-height: 85px;
+	    padding: 30px 0;
+	    display: block;
+	}
+	.theater_box  .theater_list ul li
+	{
+	    padding-left:40px;
+	    width:240px;
+	    height:26px;
+	    line-height: 26px;
+	    text-align: left;
+	    border-right: 1px solid black;
+	    border-left: none;
+	    border-bottom: none;
+	    border-top: none;
+	    float: left;
+	}
+	.theater_box_bottom
+	{
+	    height: 60px; 
+	    background-color: yellow;
+	    margin-top: 183px;
+    }
+	.theater_region
+	{
+	    height:48px; width: 100%;
+	    line-height: 48px;
+	}
+	.theater_region ul 
+	{
+	    height: 48px;
+	    text-align: center;
+	    display: inline-block;
+	}
+	.theater_region ul li 
+	{
+	    height: 48px;
+	    width:140px;
+	    border: 1px solid gray;
+	    float: left;
+	}
+	.theater_region ul .kw {border-right: none;}
+	.theater_region ul li
+	{
+	    width: 138px;
+	    height: 48px;
+	    background: 0 0;
+	}
+	.theater_region .theater_list ul .l1 {border:none;}
+	.theater_region ul li a
+  	{ 
+	      position:relative; 
+	      display:block; 
+	      background: #f8f8f8; 
+	      color: #000; 
+	      line-height:46px; 
+	      text-decoration:none; 
+	      font-size:16px;
+   	 }
+    .theater_region ul li a.active
+  	{
+      background:black; 
+      color:white; 
+	}
+	
+	.event
+	{
+	    width: 1150px;
+	    height: 300px;
+	    margin: 70px 20px;
+	}
+	.event .title .tit
+	{
+	    color:purple;
+	    margin-bottom: 15px;
+	}
+	.title .more {float: right; 
+	    margin-top:-40px;}
+	.event .event_box
+	{
+	    width:1150px; height:250px; 
+	}
+	.event_box ul 
+	{
+	    width:1150px; height: 250px;
+	}
+	.event_box ul li {position: relative;}
+	.event ul li:nth-child(1)
+	{
+	    width:555px;
+	    height: 250px;
+	    float: left;
+	    border-radius: 10px;
+	}
+	.event ul li:nth-child(2)
+	{
+	    width:555px;
+	    height: 250px;
+	    float: right;
+	    border-radius: 10px;
+	}
+	.event_box img
+	{
+	    border-radius: 10px; 
+	    width: 555px; height: 250px;
+	}
+	
+	.notice
+	{
+	    width:1150px; 
+	    height:270px; 
+	    margin: 0px 20px;
+	}
+	.notice .title .tit
+	{
+	    color:purple;
+	    margin-bottom: 15px;
+	}
+	.notice .title .more 
+	{
+	    float: right; 
+	    margin-top:-40px;}
+	
+	.notice .notice_tbl .boardlist
+	{
+	    width:1100px;
+	    height:220px;
+	    table-layout: fixed;
+	}
+	.boardlist thead th {height:45px; width:150px; padding:3px 10px;}
+	.boardlist thead th:nth-child(2) {width:680px;}
+	.boardlist thead th:nth-child(4) {width:120px;}
+	.boardlist tbody tr {height: 45px;}
+	.boardlist>tbody>tr>td,.boardlist>tbody>tr>th  {height: 45px; padding: 10px; font-size: 14px;}
+	#footer
+	{
+	    position:absolute; 
+	    top:1728px; left:0px;
+	    font-size:13px;
+	}
+	#footer .footerbottom .footerinfo
+	{
+		float:left;
+		font-size:.8667em;
+        letter-spacing: 0;
+        width:592.21px;
+        height:60px;
+	}
+}

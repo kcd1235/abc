@@ -6,13 +6,18 @@
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 <%@ include file="jsp/link.jsp" %>
-<link rel="stylesheet" href="css/notice.css">
+<link rel="stylesheet" href="css/notice.css?1234">
 <script src="js/board.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<style>
+	#wrap {background:white; height:800px;}
+	#aside {background:white}
+	#nav {background:white}
+</style>
 </head>
 <body>
-<jsp:useBean id="bMgr" class="Ch20.BoardMgr" scope="page" />
-<%@page import="java.util.*,Ch20.BoardBean" %>	<!-- ArrayList 사용위한 클래스 경로 설정-->
+<jsp:useBean id="bMgr" class="Board.BoardMgr" scope="page" />
+<%@page import="java.util.*,Board.BoardBean" %>	<!-- ArrayList 사용위한 클래스 경로 설정-->
 <%
 	int totalRecord=0;
 	int numPerPage=10;
@@ -20,10 +25,18 @@
 	int totalBlock=0;
 	int nowPage=1;
 	int nowBlock=1;
-	int pagePerBlock=10;//블럭당 페이지수(한블럭에 [1][2][3][4]...[15]까지 페이지 표시)
+	int pagePerBlock=10;
+	
+	int totalRecord1=0;
+	int numPerPage1=10;
+	int totalPage1=0;
+	int totalBlock1=0;
+	int nowPage1=1;
+	int nowBlock1=1;
+	int pagePerBlock1=10;
 	
 	int start=0;
-	int end=5;
+	int end=10;
 	String keyWord="";// 검색할 문자열
 	String keyField="";//이름 제목 내용
 	
@@ -45,10 +58,15 @@
 	}
 	start=(nowPage*numPerPage)-numPerPage;
 	end=numPerPage;
-	totalRecord=bMgr.getTotalCount(keyField,keyWord); //검색내용을 전달하여 만족하는 전체 레코드수 리턴
-	totalPage= (int)Math.ceil((double)totalRecord/ numPerPage);	//전체 페이수 계산(1000개 게시물일때 페이수는 100페이지)
-	totalBlock=(int)Math.ceil((double)totalPage/pagePerBlock);	//총 블럭(15개단위)개수 계산(1000개 게시물일때 블럭수는 7)
-	nowBlock=(int)Math.ceil((double)nowPage/pagePerBlock); // 현재 블럭 계산(총블럭에서 몇번째인지)
+	totalRecord=bMgr.getTotalCount(keyField,keyWord);
+	totalPage= (int)Math.ceil((double)totalRecord/ numPerPage);
+	totalBlock=(int)Math.ceil((double)totalPage/pagePerBlock);
+	nowBlock=(int)Math.ceil((double)nowPage/pagePerBlock);
+	
+	totalRecord1=bMgr.getTotalCount();
+	totalPage1= (int)Math.ceil((double)totalRecord1/ numPerPage1);
+	totalBlock1=(int)Math.ceil((double)totalPage1/pagePerBlock1);
+	nowBlock1=(int)Math.ceil((double)nowPage1/pagePerBlock1);
 	
 	
 	ArrayList<BoardBean> blist = bMgr.getBoardList(keyField, keyWord, start, end);
@@ -89,6 +107,7 @@ function regioncate(e)
 	else if(e.value=="gj") var a=theater_gj;
 	else if(e.value=="kw") var a=theater_kw;
 	target.options.length=1;
+	document.getElementById("theater").removeAttribute("disabled");
 	for(x in a){
 		var opt=document.createElement("option");
 		opt.value=a[x];
@@ -96,267 +115,350 @@ function regioncate(e)
 		target.appendChild(opt);
 	}
 }
-$(function(){
-	  $('.tabcontent > div').hide();
-	  $('.tabnav a').click(function () {
-	    $('.tabcontent > div').hide().filter(this.hash).fadeIn();
-	    $('.tabnav a').removeClass('active');
-	    $(this).addClass('active');
-	    return false;
-	  }).filter(':eq(0)').click();
-	});
-</script>
+	$(document).ready(function(){
+	$('ul.tab_title li').click(function(){
+		var tab_id = $(this).attr('data-tab');
 
-<div id="wrap">
+		$('ul.tab_title li').removeClass('on');
+		$('.boardlistwrap').removeClass('on');
+
+		$(this).addClass('on');
+		$("#"+tab_id).addClass('on');
+	})
+
+})
+	
+</script>
+	<div id="wrap">
 		<header id="header">
 			<jsp:include page="module/header.jsp" />
 		</header>
 		<aside id="aside">
 			<jsp:include page="module/aside.jsp"/>
 		</aside>
-		<div id="top">
-			<h2>공지사항</h2>
-		</div>
-		<br><br>
-		<div class="tab">
-			<ul class="tabnav">
-		     	<li><a href="#tab01">전체</a></li>
-		     	<li><a href="#tab02">메가박스공지</a></li>
-		     	<li><a href="#tab03">지점공지</a></li>
-	   	 	</ul>
-	    	<div class="tabcontent">
-	      		<div id="tab01">
-	      			<div id="top">
-			            전체 !건
-			        </div>
-			        <div id="divi">
-			        	<form name=searchFrm method=get action=notice.jsp>
-
-				        <select id="s1" onchange="regioncate(this)" name="keyField1" size=1>
-				      		<option>지역선택</option>
+		<div class="contents">
+			<h2 class="tit">공지사항</h2>
+			<div class="tab_list">
+				<ul class="tab_title">
+					<li class="on" data-tab="tab-1">
+						<button>전체</button>
+					</li>
+					<li data-tab="tab-2">
+						<button>메가박스공지</button>
+					</li>
+					<li data-tab="tab-1">
+						<button>지점공지</button>
+					</li>
+				</ul>
+			</div>
+			<div id="tab-1" class="boardlistwrap on">
+				<div class="boardlist-util">
+					<p class="result">
+						<strong>
+							전체
+							<em class="blue"><%=bMgr.getTotalCount(keyField, keyWord) %></em>
+							건
+						</strong>
+					</p>
+					<form name=searchFrm method=get action=notice.jsp>
+					<div class="dropdown">
+						<select id="region" onchange="regioncate(this)" name="keyField1" size=1>
+							<option>지역선택</option>
 							<option value="s">서울</option>
-				            <option value="k">경기</option>
+					        <option value="k">경기</option>
 							<option value="i">인천</option>
 							<option value="dcs">대전/충청/세종</option>
 							<option value="bdk">부산/대구/경상</option>
 							<option value="gj">광주/전라</option>
 							<option value="kw">강원</option>
 							<option value="jj">제주</option>
-				    	</select>
-			            <select id="theater" name="keyField2">
-			            	<option>극장선택</option>
 						</select>
-			            <input type="text" name="keyWord">
-			          <a href="javascript:check()"><span style="color:gray"><i class="fas fa-search"></i></span></a>
-			          <input type="hidden" value="1" name="nowPage">
-			          </form>
-			            <div class="notice">
-							<table align=center>
-								<tr>
-								<!-- 게시물 내용 출력  -->
-									<td colspan=2>
-										<table width=800>
-											<tr align=center bgcolor=lightgray height=40px;>
-												<td>번호</td>
-												<td>극장</td>
-												<td>구분</td>
-												<td width=400>제목</td>
-												<td>등록일</td>
-											</tr>
-											<%
-			listSize=blist.size();	//가져온 게시물의 개수를 listSize에 저장
-			if(blist.isEmpty())
-			{
-				out.println("등록된 게시물이 없습니다.");
-			}
-			else
-			{
-				for(int i=0;i<numPerPage;i++)
-				{
-					if(i==listSize)
-						break;
-					
-					BoardBean bean = blist.get(i);				
-		%>
-		<tr height=50px>
-			<td align=center><%=bean.getNum() %></td>
-			<td align=center><%=bean.getTheatername()%></td>
-			<td><%=bean.getDivi() %></td>
-			<td>
-			<a href="javascript:read('<%=bean.getNum()%>')"><%=bean.getSubject() %></a>
-			</td>
-			<td align=center><%=bean.getRegdate() %></td>
-		</tr>
-	
-		<%
-				}
-			}
-		%>		
-										</table>
-									</td>
-								</tr>
-								<tr><!-- 페이지블럭 출력 [1][2][3][4][5][6][7]-->
-									<td align="center">
-	<% 
-		int pageStart=(nowBlock -1)*pagePerBlock + 1;	//블럭 시작 번호(1000게시물일때 블럭총개수:7)
-		int pageEnd=((pageStart + pagePerBlock)<=totalPage)?(pageStart+pagePerBlock) :totalPage+1;
-	
-		if(totalPage!=0)
-		{
-			if(nowBlock>1)
-			{
-				%>
-					<a href="javascript:list()">[<<]</a>&nbsp;
-					<a href="javascript:block('<%=nowBlock-1%>')">[<]</a>&nbsp;
-				<%
-			}
-			for(;pageStart<pageEnd;pageStart++)
-			{
-				%>
-				<a href="javascript:paging('<%=pageStart%>')">[<%=pageStart%>]</a>
-				<%
-			}
-			if(totalBlock>nowBlock){
-				%>
-					<a href="javascript:block('<%=nowBlock+1%>')">[>]</a>
-				<%
-			}
-			
-		}
-	%>
-	
-	
-	</td>
-							</table>
-						</div>         
-	      			</div>
-	      		</div>
-	      		<div id="tab02">
-            		<div id="top">
-            			전체 !건
-            		</div>
-            		<div id="divi">
-             		 <input type="text">
-					<div class="notice">
-						<table align=center border=1>
-							<tr>
-							<!-- 게시물 내용 출력  -->
-								<td colspan=2>
-									<table border=1 width=800>
-										<tr align=center bgcolor=lightgray>
-											<td>번호</td>
-											<td>극장</td>
-											<td>구분</td>
-											<td width=400>제목</td>
-											<td>등록일</td>
-										</tr>
-										<%
-			listSize=alist.size();	//가져온 게시물의 개수를 listSize에 저장
-			if(blist.isEmpty())
-			{
-				out.println("등록된 게시물이 없습니다.");
-			}
-			else
-			{
-				for(int i=0;i<numPerPage;i++)
-				{
-					if(i==listSize)
-						break;
-					
-					BoardBean bean = alist.get(i);				
-		%>
-		<tr height=50px>
-			<td align=center><%=bean.getNum() %></td>
-			<td align=center><%=bean.getTheatername()%></td>
-			<td><%=bean.getDivi() %></td>
-			<td>
-			<a href="javascript:read('<%=bean.getNum()%>')"><%=bean.getSubject() %></a>
-			</td>
-			<td align=center><%=bean.getRegdate() %></td>
-		</tr>
-	
-		<%
-				}
-			}
-		%>			
-									</table>
-								</td>
-							</tr>
-						</table>
 					</div>
-				</div>
-				</div>
-				<div id="tab03">
-	      			<div id="top">
-			            전체 !건
-			        </div>
-			        <div id="divi">
-				        <select id="s1">
-				      		<option>지역선택</option>
-							<option value="seo">서울</option>
-				            <option value="kk">경기</option>
-							<option value="inc">인천</option>
-							<option value="dcs">대전/충청/세종</option>
-							<option value="bdk">부산/대구/경상</option>
-							<option value="kj">광주/전라</option>
-							<option value="kw">강원</option>
-							<option value="jj">제주</option>
-				    	</select>
-			            <select id="s2">
-			            	<option>극장선택</option>
+					<div class="dropdown2">
+						<select id="theater" name="keyField2" disabled>
+							<option>극장선택</option>
 						</select>
-			            <input type="text">
-			            <div class="notice">
-							<table align=center >
-								<tr>
-								<!-- 게시물 내용 출력  -->
-									<td colspan=2>
-										<table width=800>
-											<tr align=center bgcolor=lightgray>
-												<td>번호</td>
-												<td>극장</td>
-												<td>구분</td>
-												<td width=400>제목</td>
-												<td>등록일</td>
-											</tr>
-											<%
-			listSize=clist.size();	//가져온 게시물의 개수를 listSize에 저장
-			if(blist.isEmpty())
-			{
-				out.println("등록된 게시물이 없습니다.");
-			}
-			else
-			{
-				for(int i=0;i<numPerPage;i++)
-				{
-					if(i==listSize)
-						break;
-					
-					BoardBean bean = clist.get(i);				
-		%>
-		<tr height=50px>
-			<td align=center><%=bean.getNum() %></td>
-			<td align=center><%=bean.getTheatername()%></td>
-			<td><%=bean.getDivi() %></td>
-			<td>
-			<a href="javascript:read('<%=bean.getNum()%>')"><%=bean.getSubject() %></a>
-			</td>
-			<td align=center><%=bean.getRegdate() %></td>
-		</tr>
-	
-		<%
-				}
-			}
-		%>			
-										</table>
-									</td>
-								</tr>
-							</table>
-						</div>         
-	      			</div>
-	      		</div>
-	      	</div>
-	      </div>
+					</div>
+					<div class="search">
+						<input type="text" class="search_text" name="keyWord">
+						<button onclick="javascript:check()">
+							<span style="color:gray"><i class="fas fa-search"></i></span>
+						</button>
+					</div>
+					<input type="hidden" value="1" name="nowPage">
+			    	</form>
+				</div>
+				<div class="table-wrap">
+					<table class="boardlist" border=1>
+						<colgroup>
+							<col width="72px">
+							<col width="133px">
+							<col width="95px">
+							<col>
+							<col width="116px">
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="col">번호</th>
+								<th scope="col">극장</th>
+								<th scope="col">구분</th>
+								<th scope="col">제목</th>
+								<th scope="col">등록일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							listSize=blist.size();	//가져온 게시물의 개수를 listSize에 저장
+							if(blist.isEmpty())
+							{
+								out.println("등록된 게시물이 없습니다.");
+							}
+							else
+							{
+								for(int i=0;i<numPerPage;i++)
+								{
+									if(i==listSize)
+										break;
+									
+									BoardBean bean = blist.get(i);				
+							%>
+							<tr>
+								<td><%=bean.getNum() %></td>
+								<td><%=bean.getTheater() %></td>
+								<td><%=bean.getDivi() %></td>
+								<th><%=bean.getSubject() %></th>
+								<td><%=bean.getRegdate() %></td>
+							</tr>
+							<%
+								}
+							}
+						%>
+						</tbody>
+					</table>
+				</div>
+				<nav class="page">
+					<%
+							int pageStart=(nowBlock -1)*pagePerBlock + 1;
+							int pageEnd=((pageStart + pagePerBlock)<=totalPage)?(pageStart+pagePerBlock) :totalPage+1;
+							if(totalPage!=0)
+							{
+								if(nowBlock>1)
+								{
+							%>
+									<a href="javascript:list()">[처음으로]</a>
+									<a href="javascript:block('<%=nowBlock-1%>')">[이전으로]</a>&nbsp;
+							<%
+								}
+								for(;pageStart<pageEnd;pageStart++)
+								{
+									%>
+									<a href="javascript:paging('<%=pageStart%>')">[<%=pageStart%>]</a>
+									<%
+								}
+								if(totalBlock>nowBlock){
+									%>
+										<a href="javascript:block('<%=nowBlock+1%>')">[다음으로]</a>
+									<%
+								}	
+							}
+						%>	
+				</nav>
+			</div>
+			<div id="tab-2" class="boardlistwrap">
+				<div class="boardlist-util">
+					<p class="result">
+						<strong>
+							전체
+							<em class="blue"><%=totalRecord1 %></em>
+							건
+						</strong>
+					</p>
+					<form name=searchFrm method=get action=notice.jsp>
+					<div class="search">
+						<input type="text" class="search_text" name="keyWord">
+						<button onclick="javascript:check()">
+							<span style="color:gray"><i class="fas fa-search"></i></span>
+						</button>
+					</div>
+					<input type="hidden" value="1" name="nowPage">
+			    	</form>
+				</div>
+				<div class="table-wrap">
+					<table class="boardlist">
+						<colgroup>
+							<col width="72px">
+							<col width="133px">
+							<col width="95px">
+							<col>
+							<col width="116px">
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="col">번호</th>
+								<th scope="col">극장</th>
+								<th scope="col">구분</th>
+								<th scope="col">제목</th>
+								<th scope="col">등록일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							listSize=alist.size();	//가져온 게시물의 개수를 listSize에 저장
+							if(alist.isEmpty())
+							{
+								out.println("등록된 게시물이 없습니다.");
+							}
+							else
+							{
+								for(int i=0;i<numPerPage;i++)
+								{
+									if(i==listSize)
+										break;
+									
+									BoardBean bean = alist.get(i);				
+							%>
+							<tr>
+								<td><%=bean.getNum() %></td>
+								<td><%=bean.getTheater() %></td>
+								<td><%=bean.getDivi() %></td>
+								<th><%=bean.getSubject() %></th>
+								<td><%=bean.getRegdate() %></td>
+							</tr>
+							<%
+								}
+							}
+						%>
+						</tbody>
+					</table>
+				</div>
+				<nav class="page">
+					<%
+							int pageStart1=(nowBlock1 -1)*pagePerBlock1 + 1;
+							int pageEnd1=((pageStart1 + pagePerBlock1)<=totalPage1)?(pageStart1+pagePerBlock1) 
+									:totalPage1+1;
+							if(totalPage1!=0)
+							{
+								if(nowBlock1>1)
+								{
+							%>
+									<a href="javascript:list()">[처음으로]</a>
+									<a href="javascript:block('<%=nowBlock1-1%>')">[이전으로]</a>&nbsp;
+							<%
+								}
+								for(;pageStart1<pageEnd1;pageStart1++)
+								{
+									%>
+									<a href="javascript:paging('<%=pageStart1%>')">[<%=pageStart1%>]</a>
+									<%
+								}
+								if(totalBlock1>nowBlock1){
+									%>
+										<a href="javascript:block('<%=nowBlock1+1%>')">[다음으로]</a>
+									<%
+								}	
+							}
+						%>	
+				</nav>
+			</div>
+			<div id="tab-3" class="boardlistwrap">
+				<div class="boardlist-util">
+					<p class="result">
+						<strong>
+							전체
+							<em class="blue"><%=bMgr.getTotalCount(keyField, keyWord) %></em>
+							건
+						</strong>
+					</p>
+					<form name=searchFrm method=get action=notice.jsp>
+					<div class="search">
+						<input type="text" class="search_text" name="keyWord">
+						<button onclick="javascript:check()">
+							<span style="color:gray"><i class="fas fa-search"></i></span>
+						</button>
+					</div>
+					<input type="hidden" value="1" name="nowPage">
+			    	</form>
+				</div>
+				<div class="table-wrap">
+					<table class="boardlist">
+						<colgroup>
+							<col width="72px">
+							<col width="133px">
+							<col width="95px">
+							<col>
+							<col width="116px">
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="col">번호</th>
+								<th scope="col">극장</th>
+								<th scope="col">구분</th>
+								<th scope="col">제목</th>
+								<th scope="col">등록일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							listSize=clist.size();	//가져온 게시물의 개수를 listSize에 저장
+							if(clist.isEmpty())
+							{
+								out.println("등록된 게시물이 없습니다.");
+							}
+							else
+							{
+								for(int i=0;i<numPerPage;i++)
+								{
+									if(i==listSize)
+										break;
+									
+									BoardBean bean = clist.get(i);				
+							%>
+							<tr>
+								<td><%=bean.getNum() %></td>
+								<td><%=bean.getTheater() %></td>
+								<td><%=bean.getDivi() %></td>
+								<th><%=bean.getSubject() %></th>
+								<td><%=bean.getRegdate() %></td>
+							</tr>
+							<%
+								}
+							}
+						%>
+						</tbody>
+					</table>
+				</div>
+				<nav class="page">
+					<%
+							int pageStart2=(nowBlock -1)*pagePerBlock + 1;
+							int pageEnd2=((pageStart + pagePerBlock)<=totalPage)?(pageStart+pagePerBlock) :totalPage+1;
+							if(totalPage!=0)
+							{
+								if(nowBlock>1)
+								{
+							%>
+									<a href="javascript:list()">[처음으로]</a>
+									<a href="javascript:block('<%=nowBlock-1%>')">[이전으로]</a>&nbsp;
+							<%
+								}
+								for(;pageStart<pageEnd;pageStart++)
+								{
+									%>
+									<a href="javascript:paging('<%=pageStart2%>')">[<%=pageStart2%>]</a>
+									<%
+								}
+								if(totalBlock>nowBlock){
+									%>
+										<a href="javascript:block('<%=nowBlock+1%>')">[다음으로]</a>
+									<%
+								}	
+							}
+						%>	
+				</nav>
+			</div>
+		</div>
+	</div>
+	    	
+	      		
 		
 				
 <!-- 검색 -->
@@ -367,8 +469,8 @@ $(function(){
 <form name=readFrm method=get>
 	<input type="hidden" name="num">
 	<input type="hidden" name="nowPage" value=<%=nowPage%>>
-	<input type="hidden" name="keyField" value=<%=keyField %>>
-	<input type="hidden" name="keyWord" value=<%=keyWord %>>
+	<input type="hidden" name="keyField" value=<%=keyField%>>
+	<input type="hidden" name="keyWord" value=<%=keyWord%>>
 </form>
 
 <!--처음으로 기능 처리 시작  -->

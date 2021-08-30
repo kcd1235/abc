@@ -1,0 +1,232 @@
+@charset "UTF-8";
+@media only screen and (max-device-width:1300px) {
+	.content 
+{
+    width:1150px;
+    height:2042px;
+    margin-top:40px;
+    margin-left: 20px;
+    padding:40px 0 0 0;
+}
+h2.title
+{
+    padding:0 0 26px 0;
+}
+.tab_list ul
+{
+    position: relative;
+    width: 100%;
+    height: 42px;
+}
+.tab_list ul li
+{
+    float: left;
+    width: 275px;
+    border: 1px solid lightgray;
+    height: 42px;
+    border-bottom:2px solid navy;
+    line-height:42px;
+    text-align:center;
+}
+.tab_title li.on
+{
+    color: navy;
+    border-bottom: none;
+    background-color: white;
+}
+.storelist .list li:nth-child(4)~li {margin-top: 40px;}
+.newproduct {display: none;}
+ .newproduct.on {display: inherit;}
+.storemain
+{
+    height: 254px;
+    margin-top: 12px;
+}
+.storemain .bestgoods
+{
+    width:550px;
+    height: 300px;
+}
+.storemain .bestgoods a
+{
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 300px;
+    padding: 0 285px 0 0;
+}
+.storemain .bestgoods a .slogun
+{
+    width:265px;
+    height: 116px;
+    padding-top:36px;
+    font-size: 2.1333em;
+
+}
+.storemain .bestgoods a .slogun .font_blue {color: blue;}
+.storemain .bestgoods a .slogun .font_purple
+{
+    width:300px;
+    height:45px;
+    color: purple;
+    padding-top: 10px;
+}
+.storemain .bestgoods a .goods
+{
+    width: 265px;
+    padding-top: 30px;
+}
+.storemain .bestgoods a .goods .txt{height: 45px;}
+.storemain .bestgoods a .price .sale
+{
+    width:120px;
+    height: 28px;
+    line-height: 28px;
+    float: left;
+    font-size: 1.6em;
+}
+.storemain .bestgoods a .price .original
+{
+    float: left;
+    margin: 0 0 0 10px;
+    padding: 4px 0 0 0;
+    line-height: 18px;
+    text-decoration: line-through;
+}
+.storemain .bestgoods a .img
+{
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    float: left;
+}
+.storemain .bestgoods a .img img {width: 100%; height: 100%;}
+.tit 
+{
+    margin: 70px 0 15px 0;
+    height:26px;
+}
+.tit .title{float:left;}
+.tit .right {float:right;}
+
+.storelist {height: 435px;}
+.storelist.mt30 { margin-top:30px;}
+.storelist .list {margin:0 0 0 -40px;}
+.storelist .list li
+{
+    position: relative;
+    float: left;
+    width:245px;
+    height: 435px;
+    margin: 0 0 0 40px;
+    border-radius: 10px;
+    border: 1px solid gray;
+}
+.storelist .list li:first_child {margin:0px;}
+.storelist .list li .label
+{
+    width: 80px;
+    height: 24px;
+    position: absolute;
+    top:-1px;
+    left:-1px;
+    background-color: black;
+    color: white;
+    padding: 0 10px;
+    font-size: .8667em;
+    line-height: 27px;
+}
+.storelist .list li .label.new {background-color: green;}
+.storelist .list li .label.best {background-color: #ed4c57;}
+.storelist .list li .img
+{
+    width: 243px;
+    height: 243px;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    line-height: 243px;
+    border-bottom: 1px solid gray;
+    background-color: lightgray;
+}
+.storelist .list li .img img
+{
+    width: 100%;
+    height:243px;
+    vertical-align: middle;
+}
+.storelist .list li .info
+{
+    width: 243px; height: 177px;
+    padding: 0 19px;
+}
+.storelist .list li .info .tit
+{
+    width: 205px;
+    height: 94px;
+    padding-top: 20px;
+    border-bottom: 1px solid lightgray;
+    margin: 0;
+}
+.storelist .list li .info .tit .name
+{
+    height: 39px;
+    margin: 0 0 10px 0;
+    color: #222;
+}
+.storelist .list li .info .tit .bundle
+{
+    height: 17px;
+    font-size: 12px;
+    color:gray;
+}
+.storelist .list li .info .price
+{
+    width:205px;
+    height: 61px;
+    position: relative;
+    padding: 35px 0 0 0;
+}
+.storelist .list li .info .price .original
+{
+    position: absolute;
+    top:15px;
+    width:64px;
+    height:16px;
+    color: gray;
+    text-decoration: line-through;
+}
+.storelist .list li .info .price .sale
+{
+    height: 26px;
+}
+.storelist .list li .info .price .sale em
+{
+    font-family: Roboto;
+    font-size: 1.6em;
+    font-weight: 400;
+    vertical-align: middle;
+}
+.storelist .list li .info .price .sale span
+{
+    font-size: 1.3333em;
+    vertical-align: middle;
+}
+.storelist .list li .info .price .ea 
+{
+    width:90px;
+    height: 28px;
+    position: absolute;
+    right: 0;
+    top:40px;
+    text-align: right;
+}
+#footer
+	{
+	    position:absolute; 
+	    top:2278px; left:0px;
+	    font-size:13px;
+	}
+	
+}

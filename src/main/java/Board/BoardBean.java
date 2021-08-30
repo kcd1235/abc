@@ -1,24 +1,30 @@
-package Ch20;
+package Board;
 
 public class BoardBean {
 	private int num;
-	private String theatername;
+	private String region;
+	private String theater;
 	private String divi;
 	private String subject;
 	private String content;
 	private String regdate;
-	private String ip;
 	public int getNum() {
 		return num;
 	}
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public String getTheatername() {
-		return theatername;
+	public String getRegion() {
+		return region;
 	}
-	public void setTheatername(String theatername) {
-		this.theatername = theatername;
+	public void setRegion(String region) {
+		this.region = region;
+	}
+	public String getTheater() {
+		return theater;
+	}
+	public void setTheater(String theater) {
+		this.theater = theater;
 	}
 	public String getDivi() {
 		return divi;
@@ -44,11 +50,6 @@ public class BoardBean {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-	public String getIp() {
-		return ip;
-	}
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
+	
 	
 }

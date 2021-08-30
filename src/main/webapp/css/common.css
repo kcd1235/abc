@@ -1,8 +1,10 @@
 @charset "UTF-8";
+/* common */
 *
 {
     margin:0;
     padding: 0;
+    box-sizing:border-box;
 }
 body,html
 {
@@ -22,7 +24,7 @@ a
 	#wrap
 	{
 	    width:1200px;
-	    height: 700px;
+	    height:3000px;
 	    background-color: #00ffff;
 	    margin:0px auto;
 	}
